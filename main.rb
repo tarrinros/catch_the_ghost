@@ -61,7 +61,7 @@ elsif users_choice == 'включить фонарик'
   puts quest_data['flashlight_on']['go_front_door']
   puts quest_data['flashlight_on']['go_backside']
 
-  users_choice = STDIN.gets.strip
+  users_choice = STDIN.gets.to_i
 
   if users_choice == 1
     puts ''
@@ -70,7 +70,7 @@ elsif users_choice == 'включить фонарик'
     puts quest_data['front_door']['pull_door']
     puts quest_data['front_door']['go_backside']
 
-    users_choice = STDIN.gets.strip
+    users_choice = STDIN.gets.to_i
 
     if users_choice == 1
       puts ''
@@ -79,7 +79,7 @@ elsif users_choice == 'включить фонарик'
       puts quest_data['front_door_broken']['go_first_floor']
       puts quest_data['front_door_broken']['leave_game']
 
-      users_choice = STDIN.gets.strip
+      users_choice = STDIN.gets.to_i
 
       if users_choice == 1
         puts ''
@@ -88,7 +88,7 @@ elsif users_choice == 'включить фонарик'
         puts quest_data['first_floor']['discover_first_floor']
         puts quest_data['first_floor']['discover_second_floor']
 
-        users_choice = STDIN.gets.strip
+        users_choice = STDIN.gets.to_i
 
         if users_choice == 1
           puts ''
@@ -97,19 +97,83 @@ elsif users_choice == 'включить фонарик'
           puts quest_data['first_floor_police']['surrender']
           puts quest_data['first_floor_police']['escape']
 
-          users_choice = STDIN.gets.strip
+          users_choice = STDIN.gets.to_i
 
+          if users_choice == 1
+            puts ''
+            puts quest_data['first_floor_police']['bad_decision']
+            exit
+          elsif users_choice == 2
+            puts ''
+            puts quest_data['first_floor_police']['good_decision']
+            exit
+          end
         elsif users_choice == 2
+          puts ''
+          puts quest_data['second_floor_police']['main_text']
+          puts ''
+          puts quest_data['second_floor_police']['surrender']
+          puts quest_data['second_floor_police']['escape']
 
+          users_choice = STDIN.gets.to_i
+
+          if users_choice == 1
+            puts ''
+            puts quest_data['second_floor_police']['normal_decision']
+            exit
+          elsif users_choice == 2
+            puts ''
+            puts quest_data['second_floor_police']['bad_decision']
+            exit
+          end
         end
       elsif users_choice == 2
-
+        puts ''
+        puts quest_data['front_door_broken']['go_home']
       end
 
     elsif users_choice == 2
+      puts ''
+      puts quest_data['back_yard_basement']['main_text']
+      puts ''
+      puts quest_data['back_yard_basement']['main_text_2']
+      puts ''
+      puts quest_data['back_yard_basement']['surrender']
+      puts quest_data['back_yard_basement']['escape']
+
+      users_choice = STDIN.gets.to_i
+
+      if users_choice == 1
+        puts ''
+        puts quest_data['back_yard_basement']['bad_decision']
+        exit
+      elsif users_choice == 2
+        puts ''
+        puts quest_data['back_yard_basement']['good_decision']
+        exit
+      end
     end
 
   elsif users_choice == 2
+    puts ''
+    puts quest_data['back_yard_basement']['main_text']
+    puts ''
+    puts quest_data['back_yard_basement']['main_text_2']
+    puts ''
+    puts quest_data['back_yard_basement']['surrender']
+    puts quest_data['back_yard_basement']['escape']
+
+    users_choice = STDIN.gets.to_i
+
+    if users_choice == 1
+      puts ''
+      puts quest_data['back_yard_basement']['bad_decision']
+      exit
+    elsif users_choice == 2
+      puts ''
+      puts quest_data['back_yard_basement']['good_decision']
+      exit
+    end
   end
 else
   puts 'Вы ввели неправильное значение'
