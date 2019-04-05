@@ -9,12 +9,12 @@ class NightLevel
   end
 
   def arrival
-    <<-HEREDOC
-    ================================================
-    #{@quest_data['arrival']['main_text']}
-
-    #{@quest_data['arrival']['go_to_front_door']}
-    #{@quest_data['arrival']['go_to_backyard']}
+    <<~HEREDOC
+      ================================================
+      #{@quest_data['arrival']['main_text']}
+  
+      #{@quest_data['arrival']['go_front_door']}
+      #{@quest_data['arrival']['go_backyard']}
     HEREDOC
   end
 
@@ -27,33 +27,33 @@ class NightLevel
   end
 
   def flashlight_on
-    <<-HEREDOC
-    ================================================
-    #{@quest_data['flashlight_on']['main_text']}
-
-    #{@quest_data['flashlight_on']['go_to_front_door']}
-    #{@quest_data['flashlight_on']['go_to_backyard']}
+    <<~HEREDOC
+      ================================================
+      #{@quest_data['flashlight_on']['main_text']}
+  
+      #{@quest_data['flashlight_on']['go_front_door']}
+      #{@quest_data['flashlight_on']['go_backyard']}
     HEREDOC
   end
 
   def front_door
-    <<-HEREDOC
-    ================================================
-    #{@quest_data['front_door']['main_text']}
-
-    #{@quest_data['front_door']['pull_door']}
-    #{@quest_data['front_door']['go_to_backyard']}
+    <<~HEREDOC
+      ================================================
+      #{@quest_data['front_door']['main_text']}
+  
+      #{@quest_data['front_door']['pull_door']}
+      #{@quest_data['front_door']['go_backyard']}
     HEREDOC
   end
 
   def back_yard_basement
-    <<-HEREDOC
-    ================================================
-    #{@quest_data['back_yard_basement']['main_text']}
-    #{@quest_data['back_yard_basement']['main_text_2']}
-
-    #{@quest_data['back_yard_basement']['surrender']}
-    #{@quest_data['back_yard_basement']['escape']}
+    <<~HEREDOC
+      ================================================
+      #{@quest_data['back_yard_basement']['main_text']}
+      #{@quest_data['back_yard_basement']['main_text_2']}
+  
+      #{@quest_data['back_yard_basement']['surrender']}
+      #{@quest_data['back_yard_basement']['escape']}
     HEREDOC
   end
 
@@ -66,42 +66,42 @@ class NightLevel
   end
 
   def front_door_broken
-    <<-HEREDOC
-    ================================================
-    #{@quest_data['front_door_broken']['main_text']}
-
-    #{@quest_data['front_door_broken']['go_first_floor']}
-    #{@quest_data['front_door_broken']['leave_game']}
+    <<~HEREDOC
+      ================================================
+      #{@quest_data['front_door_broken']['main_text']}
+  
+      #{@quest_data['front_door_broken']['go_first_floor']}
+      #{@quest_data['front_door_broken']['leave_game']}
     HEREDOC
   end
 
   def first_floor
-    <<-HEREDOC
-    ================================================
-    #{@quest_data['first_floor']['main_text']}
-
-    #{@quest_data['first_floor']['discover_first_floor']}
-    #{@quest_data['first_floor']['discover_second_floor']}
+    <<~HEREDOC
+      ================================================
+      #{@quest_data['first_floor']['main_text']}
+  
+      #{@quest_data['first_floor']['discover_first_floor']}
+      #{@quest_data['first_floor']['discover_second_floor']}
     HEREDOC
   end
 
   def first_floor_police
-    <<-HEREDOC
-    ================================================
-    #{@quest_data['first_floor_police']['main_text']}
-
-    #{@quest_data['first_floor_police']['surrender']}
-    #{@quest_data['first_floor_police']['escape']}
+    <<~HEREDOC
+      ================================================
+      #{@quest_data['first_floor_police']['main_text']}
+  
+      #{@quest_data['first_floor_police']['surrender']}
+      #{@quest_data['first_floor_police']['escape']}
     HEREDOC
   end
 
   def second_floor_police
-    <<-HEREDOC
-    ================================================
-    #{@quest_data['second_floor_police']['main_text']}
-
-    #{@quest_data['second_floor_police']['surrender']}
-    #{@quest_data['second_floor_police']['escape']}
+    <<~HEREDOC
+      ================================================
+      #{@quest_data['second_floor_police']['main_text']}
+  
+      #{@quest_data['second_floor_police']['surrender']}
+      #{@quest_data['second_floor_police']['escape']}
     HEREDOC
   end
 

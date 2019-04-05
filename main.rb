@@ -41,18 +41,10 @@ def wrong_answer
   'Вы ввели неправильное значение'
 end
 
-puts quest_data['daytime_description']
-puts '================================================'
-puts quest_data['arrival']['main_text']
-puts ''
-puts quest_data['arrival']['go_to_front_door']
-puts quest_data['arrival']['go_to_backyard']
-
-if quest_data['title'] == 'night'
-  puts quest_data['arrival']['leave_game']
-end
-
 night_level = NightLevel.new(quest_data)
+
+puts night_level.daytime
+puts night_level.arrival
 
 users_choice = STDIN.gets.strip
 
@@ -61,129 +53,119 @@ users_choice = STDIN.gets.strip
 # Ночной уровень
 if (1..2).cover?(users_choice.to_i)
   puts ''
-  puts quest_data['arrival']['bad_decision']
+  puts night_level.arrival_bad_decision
   exit
-elsif users_choice == 'включить фонарик'
+elsif users_choice == night_level.arrival_secret_choice
   puts ''
-  puts quest_data['flashlight_on']['main_text']
-  puts ''
-  puts quest_data['flashlight_on']['go_front_door']
-  puts quest_data['flashlight_on']['go_backside']
+  puts night_level.flashlight_on
 
   users_choice = STDIN.gets.to_i
 
   if users_choice == 1
     puts ''
-    puts quest_data['front_door']['main_text']
-    puts ''
-    puts quest_data['front_door']['pull_door']
-    puts quest_data['front_door']['go_backside']
+    puts night_level.front_door
 
     users_choice = STDIN.gets.to_i
 
     if users_choice == 1
       puts ''
-      puts quest_data['front_door_broken']['main_text']
-      puts ''
-      puts quest_data['front_door_broken']['go_first_floor']
-      puts quest_data['front_door_broken']['leave_game']
+      puts night_level.front_door_broken
 
       users_choice = STDIN.gets.to_i
 
       if users_choice == 1
         puts ''
-        puts quest_data['first_floor']['main_text']
-        puts ''
-        puts quest_data['first_floor']['discover_first_floor']
-        puts quest_data['first_floor']['discover_second_floor']
+        puts night_level.first_floor
 
         users_choice = STDIN.gets.to_i
 
         if users_choice == 1
           puts ''
-          puts quest_data['first_floor_police']['main_text']
-          puts ''
-          puts quest_data['first_floor_police']['surrender']
-          puts quest_data['first_floor_police']['escape']
+          puts night_level.first_floor_police
 
           users_choice = STDIN.gets.to_i
 
           if users_choice == 1
             puts ''
-            puts quest_data['first_floor_police']['bad_decision']
+            puts night_level.arrest
             exit
           elsif users_choice == 2
             puts ''
-            puts quest_data['first_floor_police']['good_decision']
+            puts night_level.good_escape
             exit
+          else
+            puts wrong_answer
           end
         elsif users_choice == 2
           puts ''
-          puts quest_data['second_floor_police']['main_text']
-          puts ''
-          puts quest_data['second_floor_police']['surrender']
-          puts quest_data['second_floor_police']['escape']
+          puts night_level.second_floor_police
 
           users_choice = STDIN.gets.to_i
 
           if users_choice == 1
             puts ''
-            puts quest_data['second_floor_police']['normal_decision']
+            puts night_level.arrest
             exit
           elsif users_choice == 2
             puts ''
-            puts quest_data['second_floor_police']['bad_decision']
+            puts night_level.bad_escape
             exit
+          else
+            puts wrong_answer
           end
+        else
+          puts wrong_answer
         end
       elsif users_choice == 2
         puts ''
-        puts quest_data['front_door_broken']['go_home']
+        puts night_level.returning_message
+      else
+        puts wrong_answer
       end
 
     elsif users_choice == 2
       puts ''
-      puts quest_data['back_yard_basement']['main_text']
-      puts ''
-      puts quest_data['back_yard_basement']['main_text_2']
-      puts ''
-      puts quest_data['back_yard_basement']['surrender']
-      puts quest_data['back_yard_basement']['escape']
+      puts night_level.back_yard_basement
 
       users_choice = STDIN.gets.to_i
 
       if users_choice == 1
         puts ''
-        puts quest_data['back_yard_basement']['bad_decision']
+        puts night_level.back_yard_bad_decision
         exit
       elsif users_choice == 2
         puts ''
-        puts quest_data['back_yard_basement']['good_decision']
+        puts night_level.back_yard_good_decision
         exit
+      else
+        puts wrong_answer
       end
+    else
+      puts wrong_answer
     end
 
   elsif users_choice == 2
     puts ''
-    puts quest_data['back_yard_basement']['main_text']
-    puts ''
-    puts quest_data['back_yard_basement']['main_text_2']
-    puts ''
-    puts quest_data['back_yard_basement']['surrender']
-    puts quest_data['back_yard_basement']['escape']
+    puts night_level.back_yard_basement
 
     users_choice = STDIN.gets.to_i
 
     if users_choice == 1
       puts ''
-      puts quest_data['back_yard_basement']['bad_decision']
+      puts night_level.back_yard_bad_decision
       exit
     elsif users_choice == 2
       puts ''
-      puts quest_data['back_yard_basement']['good_decision']
+      puts night_level.back_yard_good_decision
       exit
+    else
+      puts wrong_answer
     end
+  else
+    puts wrong_answer
   end
+elsif users_choice.to_i == 3
+  puts night_level.returning_message
 else
-  puts 'Вы ввели неправильное значение'
+  puts wrong_answer
 end
