@@ -1,12 +1,12 @@
 # Level class, when user choose the night
 class NightsLevel
-  attr_reader :title, :daytime, :returning_message, :secret_word
+  attr_reader :title, :daytime, :leave_game_message, :secret_word
 
   def initialize(quest_data)
     @quest_data = quest_data
     @title = quest_data['title']
     @daytime = quest_data['daytime_description']
-    @returning_message = quest_data['go_home']
+    @leave_game_message = quest_data['go_home']
     @secret_word = quest_data['secret_choice']
   end
 

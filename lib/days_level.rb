@@ -1,19 +1,12 @@
 # Level class, when user choose the daytime
 class DaysLevel
-  attr_reader :title, :daytime, :returning_message,
-              :broken_door, :first_floor_discovered,
-              :second_floor_discovered, :basement_discovered,
-              :secret_word
+  attr_reader :title, :daytime, :leave_game_message, :secret_word
 
   def initialize(quest_data)
     @quest_data = quest_data
     @title = quest_data['title']
     @daytime = quest_data['daytime_description']
-    @returning_message = quest_data['go_home']
-    @broken_door = false
-    @first_floor_discovered = false
-    @second_floor_discovered = false
-    @basement_discovered = false
+    @leave_game_message = quest_data['go_home']
     @secret_word = quest_data['secret_choice']
   end
 
@@ -34,7 +27,7 @@ class DaysLevel
       #{@quest_data['front_yard_level']['front_door']['main_text']}
   
       #{@quest_data['front_yard_level']['front_door']['pull_door']}
-      #{@quest_data['front_yard_level']['front_door']['go_backyard']}
+      #{@quest_data['front_yard_level']['front_door']['leave_game']}
     HEREDOC
   end
 
@@ -44,7 +37,6 @@ class DaysLevel
       #{@quest_data['front_yard_level']['front_door_broken']['main_text']}
   
       #{@quest_data['front_yard_level']['front_door_broken']['go_first_floor']}
-      #{@quest_data['front_yard_level']['front_door_broken']['go_backyard']}
       #{@quest_data['front_yard_level']['front_door_broken']['leave_game']}
     HEREDOC
   end
@@ -69,23 +61,23 @@ class DaysLevel
     HEREDOC
   end
 
-  def dicover_first_floor
+  def discover_first_floor
     <<~HEREDOC
       ================================================
-      #{@quest_data['front_yard_level']['first_floor_dicover']['main_text']}
+      #{@quest_data['front_yard_level']['first_floor_discover']['main_text']}
   
-      #{@quest_data['front_yard_level']['first_floor_dicover']['leave_game']}
-      #{@quest_data['front_yard_level']['first_floor_dicover']['discover_second_floor']}
+      #{@quest_data['front_yard_level']['first_floor_discover']['leave_game']}
+      #{@quest_data['front_yard_level']['first_floor_discover']['discover_second_floor']}
     HEREDOC
   end
 
-  def dicover_second_floor
+  def discover_second_floor
     <<~HEREDOC
       ================================================
-      #{@quest_data['front_yard_level']['second_floor_dicover']['main_text']}
+      #{@quest_data['front_yard_level']['second_floor_discover']['main_text']}
   
-      #{@quest_data['front_yard_level']['second_floor_dicover']['leave_game']}
-      #{@quest_data['front_yard_level']['second_floor_dicover']['go_first_floor']}
+      #{@quest_data['front_yard_level']['second_floor_discover']['leave_game']}
+      #{@quest_data['front_yard_level']['second_floor_discover']['go_first_floor']}
     HEREDOC
   end
 
@@ -160,7 +152,7 @@ class DaysLevel
     HEREDOC
   end
 
-  def be_an_accident
+  def look_up
     <<~HEREDOC
       ================================================
       #{@quest_data['back_yard_level']['accident']['main_text']}
@@ -180,8 +172,7 @@ class DaysLevel
       ================================================
       #{@quest_data['back_yard_level']['accident_fails']['main_text']}
   
-      #{@quest_data['back_yard_level']['accident_fails']['discover_basement']}
-      #{@quest_data['back_yard_level']['accident_fails']['go_front_side']}
+      #{@quest_data['back_yard_level']['accident_fails']['go_frontyard']}
       #{@quest_data['back_yard_level']['accident_fails']['leave_game']}
     HEREDOC
   end
