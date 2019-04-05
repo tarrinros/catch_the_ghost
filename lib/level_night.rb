@@ -1,3 +1,4 @@
+# Level class, when user choose the night
 class NightLevel
   attr_reader :title, :daytime, :returning_message
 
