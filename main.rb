@@ -3,6 +3,7 @@
 # Когда игрок выбирает одно из значений - переходит на следующий уровень
 
 require 'json'
+require './lib/night_level'
 
 INTRO_URL = 'data/intro.json'
 DAY_QUEST_URL = 'data/day_quest.json'
@@ -27,7 +28,7 @@ while daytime_choice != 1
 end
 
 # Во вступлении считывать системное время и загружать соответствующий json файл уровней + Time.now.hour
-quest_file_url = (6..20).cover?(21) ? DAY_QUEST_URL : NIGHT_QUEST_URL
+quest_file_url = (6..20).cover?(18) ? DAY_QUEST_URL : NIGHT_QUEST_URL
 quest_data = JSON.parse(File.read(quest_file_url))
 
 broken_door = false
@@ -35,6 +36,10 @@ first_floor_discovered = false
 second_floor_discovered = false
 basement_discovered = false
 users_choice = 0
+
+def wrong_answer
+  'Вы ввели неправильное значение'
+end
 
 puts quest_data['daytime_description']
 puts '================================================'
@@ -49,7 +54,51 @@ end
 
 users_choice = STDIN.gets.strip
 
-# Условия для ночного времени
+# Дневной уровень
+if users_choice.to_i == 1
+    puts ''
+    puts quest_data['front_yard_level']['front_door']['main_text']
+    puts ''
+    puts quest_data['front_yard_level']['front_door']['pull_door']
+    puts quest_data['front_yard_level']['front_door']['go_to_backside']
+
+    users_choice = STDIN.gets.to_i
+
+    if users_choice.to_i == 1
+      puts ''
+      puts quest_data['front_yard_level']['front_door_broken']['main_text']
+      puts ''
+      puts quest_data['front_yard_level']['front_door_broken']['go_first_floor']
+      puts quest_data['front_yard_level']['front_door_broken']['go_backside']
+      puts quest_data['front_yard_level']['front_door_broken']['go_home']
+
+      users_choice = STDIN.gets.to_i
+
+      if users_choice.to_i == 1
+        puts ''
+        puts quest_data['front_yard_level']['front_door_broken']['main_text']
+        puts ''
+        puts quest_data['front_yard_level']['front_door_broken']['go_first_floor']
+        puts quest_data['front_yard_level']['front_door_broken']['go_backside']
+        puts quest_data['front_yard_level']['front_door_broken']['go_home']
+
+        users_choice = STDIN.gets.to_i
+      elsif users_choice.to_i == 2
+      elsif users_choice.to_i == 3
+      else
+        puts wrong_answer
+      end
+    elsif users_choice.to_i == 2
+    elsif users_choice.to_i == 3
+    else
+      puts wrong_answer
+    end
+elsif users_choice.to_i == 2
+else
+  puts wrong_answer
+end
+
+# Ночной уровень
 if (1..2).cover?(users_choice.to_i)
   puts ''
   puts quest_data['arrival']['bad_decision']
