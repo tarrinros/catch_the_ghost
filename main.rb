@@ -3,8 +3,8 @@
 # Когда игрок выбирает одно из значений - переходит на следующий уровень
 
 require 'json'
-require './lib/level_night'
-require './lib/level_day'
+require './lib/nights_level'
+require './lib/days_level'
 
 INTRO_URL = 'data/intro.json'
 DAY_QUEST_URL = 'data/day_quest.json'
@@ -33,30 +33,23 @@ while daytime_choice != 1
 end
 
 # Во вступлении считывать системное время и загружать соответствующий json файл уровней + Time.now.hour
-quest_file_url = (6..20).cover?(21) ? DAY_QUEST_URL : NIGHT_QUEST_URL
+quest_file_url = (6..20).cover?(18) ? DAY_QUEST_URL : NIGHT_QUEST_URL
 quest_data = JSON.parse(File.read(quest_file_url))
 
-broken_door = false
-first_floor_discovered = false
-second_floor_discovered = false
-basement_discovered = false
-users_choice = 0
-
 if quest_data['title'] == 'night'
-
   # Ночной уровень
-  night_level = NightLevel.new(quest_data)
+  night_level = NightsLevel.new(quest_data)
 
   puts night_level.daytime
-  puts night_level.arrival
+  puts night_level.arrive
 
   users_choice = STDIN.gets.strip
 
   if (1..2).cover?(users_choice.to_i)
     puts ''
-    puts night_level.arrival_bad_decision
+    puts night_level.die_in_the_dark
     exit
-  elsif users_choice == night_level.arrival_secret_choice
+  elsif users_choice == night_level.secret_word
     puts ''
     puts night_level.flashlight_on
 
@@ -64,52 +57,52 @@ if quest_data['title'] == 'night'
 
     if users_choice == 1
       puts ''
-      puts night_level.front_door
+      puts night_level.go_to_front_door
 
       users_choice = STDIN.gets.to_i
 
       if users_choice == 1
         puts ''
-        puts night_level.front_door_broken
+        puts night_level.brake_front_door
 
         users_choice = STDIN.gets.to_i
 
         if users_choice == 1
           puts ''
-          puts night_level.first_floor
+          puts night_level.discover_first_floor
 
           users_choice = STDIN.gets.to_i
 
           if users_choice == 1
             puts ''
-            puts night_level.first_floor_police
+            puts night_level.police_arrived_first_floor
 
             users_choice = STDIN.gets.to_i
 
             if users_choice == 1
               puts ''
-              puts night_level.arrest
+              puts night_level.be_arrested
               exit
             elsif users_choice == 2
               puts ''
-              puts night_level.good_escape
+              puts night_level.escape_successfully
               exit
             else
               puts wrong_answer
             end
           elsif users_choice == 2
             puts ''
-            puts night_level.second_floor_police
+            puts night_level.police_arrived_second_floor
 
             users_choice = STDIN.gets.to_i
 
             if users_choice == 1
               puts ''
-              puts night_level.arrest
+              puts night_level.be_arrested
               exit
             elsif users_choice == 2
               puts ''
-              puts night_level.bad_escape
+              puts night_level.escape_unsuccessfully
               exit
             else
               puts wrong_answer
@@ -126,17 +119,17 @@ if quest_data['title'] == 'night'
 
       elsif users_choice == 2
         puts ''
-        puts night_level.back_yard_basement
+        puts night_level.go_to_backyard
 
         users_choice = STDIN.gets.to_i
 
         if users_choice == 1
           puts ''
-          puts night_level.back_yard_bad_decision
+          puts night_level.surrender_on_backyard
           exit
         elsif users_choice == 2
           puts ''
-          puts night_level.back_yard_good_decision
+          puts night_level.escape_from_backyard
           exit
         else
           puts wrong_answer
@@ -147,17 +140,17 @@ if quest_data['title'] == 'night'
 
     elsif users_choice == 2
       puts ''
-      puts night_level.back_yard_basement
+      puts night_level.go_to_backyard
 
       users_choice = STDIN.gets.to_i
 
       if users_choice == 1
         puts ''
-        puts night_level.back_yard_bad_decision
+        puts night_level.surrender_on_backyard
         exit
       elsif users_choice == 2
         puts ''
-        puts night_level.back_yard_good_decision
+        puts night_level.escape_from_backyard
         exit
       else
         puts wrong_answer
@@ -173,6 +166,133 @@ if quest_data['title'] == 'night'
 
 elsif quest_data['title'] == 'day'
   # Дневной уровень
+  day_level = DaysLevel.new(quest_data)
+
+  puts day_level.daytime
+  puts day_level.arrive
+
+  users_choice = STDIN.gets.strip
+
+  if (1..2).cover?(users_choice.to_i)
+    puts ''
+    puts night_level.die_in_the_dark
+    exit
+  elsif users_choice == night_level.secret_word
+    puts ''
+    puts night_level.flashlight_on
+
+    users_choice = STDIN.gets.to_i
+
+    if users_choice == 1
+      puts ''
+      puts night_level.go_to_front_door
+
+      users_choice = STDIN.gets.to_i
+
+      if users_choice == 1
+        puts ''
+        puts night_level.brake_front_door
+
+        users_choice = STDIN.gets.to_i
+
+        if users_choice == 1
+          puts ''
+          puts night_level.discover_first_floor
+
+          users_choice = STDIN.gets.to_i
+
+          if users_choice == 1
+            puts ''
+            puts night_level.police_arrived_first_floor
+
+            users_choice = STDIN.gets.to_i
+
+            if users_choice == 1
+              puts ''
+              puts night_level.be_arrested
+              exit
+            elsif users_choice == 2
+              puts ''
+              puts night_level.escape_successfully
+              exit
+            else
+              puts wrong_answer
+            end
+          elsif users_choice == 2
+            puts ''
+            puts night_level.police_arrived_second_floor
+
+            users_choice = STDIN.gets.to_i
+
+            if users_choice == 1
+              puts ''
+              puts night_level.be_arrested
+              exit
+            elsif users_choice == 2
+              puts ''
+              puts night_level.escape_unsuccessfully
+              exit
+            else
+              puts wrong_answer
+            end
+          else
+            puts wrong_answer
+          end
+        elsif users_choice == 2
+          puts ''
+          puts night_level.returning_message
+        else
+          puts wrong_answer
+        end
+
+      elsif users_choice == 2
+        puts ''
+        puts night_level.go_to_backyard
+
+        users_choice = STDIN.gets.to_i
+
+        if users_choice == 1
+          puts ''
+          puts night_level.surrender_on_backyard
+          exit
+        elsif users_choice == 2
+          puts ''
+          puts night_level.escape_from_backyard
+          exit
+        else
+          puts wrong_answer
+        end
+      else
+        puts wrong_answer
+      end
+
+    elsif users_choice == 2
+      puts ''
+      puts night_level.go_to_backyard
+
+      users_choice = STDIN.gets.to_i
+
+      if users_choice == 1
+        puts ''
+        puts night_level.surrender_on_backyard
+        exit
+      elsif users_choice == 2
+        puts ''
+        puts night_level.escape_from_backyard
+        exit
+      else
+        puts wrong_answer
+      end
+    else
+      puts wrong_answer
+    end
+  elsif users_choice.to_i == 3
+    puts night_level.returning_message
+  else
+    puts wrong_answer
+  end
+else
+  puts 'Чо-то не то!'
 end
 
 

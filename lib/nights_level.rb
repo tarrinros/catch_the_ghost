@@ -1,15 +1,16 @@
 # Level class, when user choose the night
-class NightLevel
-  attr_reader :title, :daytime, :returning_message
+class NightsLevel
+  attr_reader :title, :daytime, :returning_message, :secret_word
 
   def initialize(quest_data)
     @quest_data = quest_data
     @title = quest_data['title']
     @daytime = quest_data['daytime_description']
     @returning_message = quest_data['go_home']
+    @secret_word = quest_data['secret_choice']
   end
 
-  def arrival
+  def arrive
     <<~HEREDOC
       ================================================
       #{@quest_data['arrival']['main_text']}
@@ -19,11 +20,7 @@ class NightLevel
     HEREDOC
   end
 
-  def arrival_secret_choice
-    @quest_data['arrival']['secret_choice']
-  end
-
-  def arrival_bad_decision
+  def die_in_the_dark
     @quest_data['arrival']['bad_decision']
   end
 
@@ -37,7 +34,7 @@ class NightLevel
     HEREDOC
   end
 
-  def front_door
+  def go_to_front_door
     <<~HEREDOC
       ================================================
       #{@quest_data['front_door']['main_text']}
@@ -47,7 +44,7 @@ class NightLevel
     HEREDOC
   end
 
-  def back_yard_basement
+  def go_to_backyard
     <<~HEREDOC
       ================================================
       #{@quest_data['back_yard_basement']['main_text']}
@@ -58,15 +55,15 @@ class NightLevel
     HEREDOC
   end
 
-  def back_yard_bad_decision
+  def surrender_on_backyard
     @quest_data['back_yard_basement']['bad_decision']
   end
 
-  def back_yard_good_decision
+  def escape_from_backyard
     @quest_data['back_yard_basement']['good_decision']
   end
 
-  def front_door_broken
+  def brake_front_door
     <<~HEREDOC
       ================================================
       #{@quest_data['front_door_broken']['main_text']}
@@ -76,7 +73,7 @@ class NightLevel
     HEREDOC
   end
 
-  def first_floor
+  def discover_first_floor
     <<~HEREDOC
       ================================================
       #{@quest_data['first_floor']['main_text']}
@@ -86,7 +83,7 @@ class NightLevel
     HEREDOC
   end
 
-  def first_floor_police
+  def police_arrived_first_floor
     <<~HEREDOC
       ================================================
       #{@quest_data['first_floor_police']['main_text']}
@@ -96,7 +93,7 @@ class NightLevel
     HEREDOC
   end
 
-  def second_floor_police
+  def police_arrived_second_floor
     <<~HEREDOC
       ================================================
       #{@quest_data['second_floor_police']['main_text']}
@@ -106,15 +103,15 @@ class NightLevel
     HEREDOC
   end
 
-  def good_escape
+  def escape_successfully
     @quest_data['first_floor_police']['good_escape']
   end
 
-  def bad_escape
+  def escape_unsuccessfully
     @quest_data['second_floor_police']['bad_escape']
   end
 
-  def arrest
+  def be_arrested
     @quest_data['arrest']
   end
 end
