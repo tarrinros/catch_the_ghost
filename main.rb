@@ -33,7 +33,7 @@ while daytime_choice != 1
 end
 
 # Во вступлении считывать системное время и загружать соответствующий json файл уровней + Time.now.hour
-quest_file_url = (6..20).cover?(22) ? DAY_QUEST_URL : NIGHT_QUEST_URL
+quest_file_url = (6..20).cover?(Time.now.hour) ? DAY_QUEST_URL : NIGHT_QUEST_URL
 quest_data = JSON.parse(File.read(quest_file_url))
 
 if quest_data['title'] == 'night'
